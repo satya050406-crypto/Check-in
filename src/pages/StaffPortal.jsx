@@ -216,6 +216,23 @@ const StaffPortal = () => {
                         </p>
                     </div>
                 </div>
+
+                {/* Network Access Info */}
+                <div style={{
+                    marginTop: '24px',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    backgroundColor: 'rgba(255,255,255,0.03)',
+                    border: '1px solid var(--border)',
+                    textAlign: 'center'
+                }}>
+                    <p style={{ fontSize: '11px', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
+                        Access from other devices:
+                    </p>
+                    <p style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>
+                        http://{window.location.hostname}:5566
+                    </p>
+                </div>
             </motion.div>
         </div>
     );
