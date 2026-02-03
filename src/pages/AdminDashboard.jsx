@@ -23,9 +23,13 @@ const AdminDashboard = () => {
             return;
         }
 
-        const loadData = () => {
-            setLogs(StaffService.getLogs().reverse());
-            setActiveSessions(StaffService.getActiveSessions());
+        const loadData = async () => {
+            const [logsData, sessionsData] = await Promise.all([
+                StaffService.getLogs(),
+                StaffService.getActiveSessions()
+            ]);
+            setLogs([...logsData].reverse());
+            setActiveSessions(sessionsData);
         };
 
         loadData();

@@ -17,12 +17,12 @@ const StaffPortal = () => {
         return () => clearInterval(timer);
     }, []);
 
-    const handleCheckAction = (e) => {
+    const handleCheckAction = async (e) => {
         e.preventDefault();
         if (!staffId.trim()) return;
 
         if (isCheckedIn) {
-            const res = StaffService.checkOut(staffId);
+            const res = await StaffService.checkOut(staffId);
             if (res.success) {
                 setMessage({ type: 'success', text: `Goodbye, ${staffName}! Check-out successful.` });
                 setIsCheckedIn(false);
@@ -36,7 +36,7 @@ const StaffPortal = () => {
                 setMessage({ type: 'error', text: 'Please enter your name for first-time check-in' });
                 return;
             }
-            const res = StaffService.checkIn(staffId, staffName);
+            const res = await StaffService.checkIn(staffId, staffName);
             if (res.success) {
                 setMessage({ type: 'success', text: `Welcome, ${staffName}! Check-in successful.` });
                 setIsCheckedIn(true);
@@ -48,12 +48,16 @@ const StaffPortal = () => {
         setTimeout(() => setMessage(null), 5000);
     };
 
-    const checkStatus = (id) => {
-        const active = StaffService.isStaffCheckedIn(id);
+    const checkStatus = async (id) => {
+        if (!id.trim()) {
+            setIsCheckedIn(false);
+            return;
+        }
+        const active = await StaffService.isStaffCheckedIn(id);
         setIsCheckedIn(active);
         if (active) {
-            const sessions = StaffService.getActiveSessions();
-            setStaffName(sessions[id].staffName);
+            const sessions = await StaffService.getActiveSessions();
+            setStaffName(sessions[id]?.staffName || '');
         }
     };
 
