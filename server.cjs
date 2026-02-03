@@ -8,8 +8,18 @@ const app = express();
 const PORT = 5577;
 const DB_FILE = path.join(__dirname, 'db.json');
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(bodyParser.json());
+
+// Request logger for diagnostics
+app.use((req, res, next) => {
+    console.log(`${new Date().toLocaleTimeString()} - ${req.method} ${req.url} from ${req.ip}`);
+    next();
+});
 
 // Initialize DB if not exists
 const initDb = async () => {
