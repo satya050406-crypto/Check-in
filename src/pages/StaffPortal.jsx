@@ -232,6 +232,9 @@ const StaffPortal = () => {
                     <p style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)' }}>
                         http://{window.location.hostname}:5566
                     </p>
+                    <p style={{ fontSize: '10px', color: 'var(--text-dim)', marginTop: '8px' }}>
+                        API Target: http://{window.location.hostname}:5577
+                    </p>
                 </div>
             </motion.div>
         </div>
